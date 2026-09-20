@@ -5,13 +5,18 @@ public class DoubleUp {
      */
    public static String doubleUp(String s) {
       // TODO: Fill in this function
-      return null;
+      int length = s.length();
+      String newString = "";
+      for (int i = 0; i < length;i++) {
+         newString += s.charAt(i) +""+ s.charAt(i);
+      }
+      return newString;
    }
    
    public static void main(String[] args) {
       String s = doubleUp("hello");
-      System.out.println(s);
+      System.out.println(s);//hheelllloo
       
-      System.out.println(doubleUp("cat"));
+      System.out.println(doubleUp("cat"));//ccaatt
    }
 }
