@@ -191,7 +191,8 @@ public class TestParticleSimulator {
             assertThat(result).isEqualTo(expectedState.trim());
         }
     }
-
+// in the idea,after you rebuild,you don't run the method,the idea show the last output
+//So you try to rebuild to deal the first failure,you need to press the button too.
 
     @Test
     public void testGrow() {
