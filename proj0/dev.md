@@ -19,3 +19,5 @@ After the checkout,I think the code is right and I put the code of flow method i
             resolution: To check the code of tick() method  
             ans:the code is right
 So,Thoughtout the fixation,I want to use the agent to check the code.
+
+Finally,I try to rebuild the code of the project to deal the problem.

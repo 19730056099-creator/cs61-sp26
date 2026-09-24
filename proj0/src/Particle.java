@@ -113,6 +113,66 @@ public class Particle {
     }
 
     public void grow(Map<Direction, Particle> neighbors) {
+//        Modify public void grow(Map<Direction, Particle> neighbors). It should pick from the following four choices:
+//          1.With 10% chance, if the UP neighbor has flavor EMPTY, set the flavor of the up neighbor to the same flavor as the current particle.
+//          2.With 10% chance, if the LEFT neighbor has flavor EMPTY, set the flavor of the LEFT neighbor to the same flavor as the current particle.
+//          3.With 10% chance, if the RIGHT neighbor has flavor EMPTY, set the flavor of the RIGHT neighbor to the same flavor as the current particle.
+//          4.With 70% chance do none of the above.
+//        Make sure to set the neighbor’s lifespan based on the flavor of the current particle, e.g. if a PLANT grows into the UP position, it should have a lifespan of 150 as given in LIFESPANS.
+        int choice = StdRandom.uniformInt(10);
+
+//        if (choice == 0){
+//            Particle up = neighbors.get(Direction.UP);
+//            if (up.flavor == ParticleFlavor.EMPTY){
+//                up.flavor = this.flavor;
+//            }
+//        }
+//        if (choice == 1){
+//            Particle left = neighbors.get(Direction.LEFT);
+//            if (left.flavor == ParticleFlavor.EMPTY){
+//                left.flavor = this.flavor;
+//            }
+//        }
+//        if (choice == 2){
+//            Particle left = neighbors.get(Direction.LEFT);
+//            if (left.flavor == ParticleFlavor.EMPTY){
+//                left.flavor = this.flavor;
+//            }
+//        }
+        //使用if语句写这个逻辑速度太慢了
+
+        //以下是使用switch语句实现选择逻辑
+        //老版java写法
+
+        switch (choice) {
+            case 0:
+                // 什么都不做
+                break;
+            case 1:
+                Particle up = neighbors.get(Direction.UP);
+                if (up.flavor == ParticleFlavor.EMPTY) {
+                    up.flavor = this.flavor;
+                }
+                break;
+            case 2:
+                Particle left = neighbors.get(Direction.LEFT);
+                if (left.flavor == ParticleFlavor.EMPTY) {
+                    left.flavor = this.flavor;
+                }
+                break;
+            case 3:
+                Particle right = neighbors.get(Direction.RIGHT);
+                if (right.flavor == ParticleFlavor.EMPTY) {
+                    right.flavor = this.flavor;
+                }
+            //利用传统java中switch算法case不写break，会自动下落的机制来实现
+            //不过我们这道题中，并不需要用这个机制，直接default:break就可以表示剩下的全部都是直接break不做任何操作
+            default:
+                break;//至于说会不会有别的情况，这是不可能的，因为choice数字是由随机范围整数决定的，整数的值不会出现超出范围的情况
+//            但以上的代码还是不完全符合满分标准
+//            文中hint写到:use the lifespans map for the cleanest code
+        }
+
     }
 
     public void burn(Map<Direction, Particle> neighbors) {
@@ -126,11 +186,14 @@ public class Particle {
         }
 //          2.If the flavor of the current particle is not BARRIER, call fall.
         if (this.flavor  != ParticleFlavor.BARRIER){
-            fall(neighbors);
+            fall(neighbors);//this is enabling gravity
         }
 
         if (this.flavor == ParticleFlavor.WATER){
             flow(neighbors);
+        }
+        if (this.flavor == ParticleFlavor.FLOWER || this.flavor == ParticleFlavor.PLANT){
+            grow(neighbors);
         }
     }
 }
