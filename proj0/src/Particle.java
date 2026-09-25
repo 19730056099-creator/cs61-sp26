@@ -44,20 +44,35 @@ public class Particle {
     public Color color() {
         if (flavor == ParticleFlavor.EMPTY) {
             return Color.BLACK;
-        } else if (flavor == ParticleFlavor.SAND) {
+        }
+        else if (flavor == ParticleFlavor.SAND) {
             return Color.YELLOW;
-        } else if (flavor == ParticleFlavor.BARRIER ) {
+        }
+        else if (flavor == ParticleFlavor.BARRIER ) {
             return Color.GRAY;
-        } else if (flavor == ParticleFlavor.WATER) {
+        }
+        else if (flavor == ParticleFlavor.WATER) {
             return Color.BLUE;
-        } else if (flavor == ParticleFlavor.FOUNTAIN){
+        }
+        else if (flavor == ParticleFlavor.FOUNTAIN){
             return Color.cyan;
-        } else if (flavor == ParticleFlavor.PLANT){
-            return new Color(0,255,0);
-        } else if (flavor == ParticleFlavor.FIRE) {
-            return new Color(255,0,0);
-        } else if (flavor == ParticleFlavor.FLOWER){
-            return new Color(255,141,161);
+        }
+        else if (flavor == ParticleFlavor.PLANT){
+            double ratio = (double) Math.max(0, Math.min(lifespan, PLANT_LIFESPAN)) / PLANT_LIFESPAN;
+            int g = 120 + (int) Math.round((255 - 120) * ratio);
+            return new Color(0, g, 0);
+        }
+        else if (flavor == ParticleFlavor.FIRE) {
+            double ratio = (double) Math.max(0, Math.min(lifespan, FIRE_LIFESPAN)) / FIRE_LIFESPAN;
+            int r = (int) Math.round(255 * ratio);
+            return new Color(r, 0, 0);
+        }
+        else if (flavor == ParticleFlavor.FLOWER){
+            double ratio = (double) Math.max(0, Math.min(lifespan, FLOWER_LIFESPAN)) / FLOWER_LIFESPAN;
+            int r = 120 + (int) Math.round((255 - 120) * ratio);
+            int g = 70 + (int) Math.round((141 - 70) * ratio);
+            int b = 80 + (int) Math.round((161 - 80) * ratio);
+            return new Color(r, g, b);
         }
         return Color.GRAY;
     }
