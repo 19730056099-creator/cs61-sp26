@@ -240,6 +240,29 @@ public class Particle {
     }
 
     public void burn(Map<Direction, Particle> neighbors) {
+//        Modify public void burn(Map<Direction, Particle> neighbors) such that it has the following behavior:
+//        For each neighbor, if the neighbor is either PLANT or FLOWER, with 40% chance independently,
+//        give that flavor ParticleFlavor.FIRE and set its lifespan to FIRE_LIFESPAN.
+//        Then modify the action method to so that if the current particle is FIRE, it calls burn.
+//        int target = StdRandom.uniformInt(10);
+//        if(neighbors = ParticleFlavor.FLOWER)
+//        if ()
+        //遍历每一个邻居粒子
+        for (Particle neighbor : neighbors.values()){
+            if (neighbor == null){
+//                return;不能写return，如果写的是return的话，那么只要找到为空的邻居，循环就中止了，这与我们想要burn的效果不符合
+                continue;//使用continue的话，找到null粒子后，也只是会跳过当前这个为null的粒子位置，继续找其他相邻位置的粒子
+            }
+            //如果找到粒子了之后，再检查一下粒子是否为花或植物
+            if (neighbor.flavor == ParticleFlavor.PLANT || neighbor.flavor == ParticleFlavor.FLOWER){
+                if (StdRandom.uniformDouble() < 0.4){//StdRandom.uniformDouble()可以去除0-1之间的小数,以达到一个概率的效果
+                    //比起直接使用uniformInt 得到0到10之间随机的一个数，然会使用switch()case语句来达到概率的效果
+                    //代码上要简洁得不少,其实官方的方法也是用java的Random方法实现的，低层的原理都是一样的
+                    neighbor.flavor = ParticleFlavor.FIRE;//不能使用==,这个符号只能用来比较数值大小，面对这类将某个对象变为某个对象的，要使用赋值符号=
+                    neighbor.lifespan = FIRE_LIFESPAN;
+                }
+            }
+        }
     }
 
     public void action(Map<Direction, Particle> neighbors) {
@@ -258,6 +281,9 @@ public class Particle {
         }
         if (this.flavor == ParticleFlavor.FLOWER || this.flavor == ParticleFlavor.PLANT){
             grow(neighbors);
+        }
+        if (this.flavor == ParticleFlavor.FIRE){
+            burn(neighbors);
         }
     }
 }
