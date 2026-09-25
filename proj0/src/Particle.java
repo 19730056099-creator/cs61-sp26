@@ -17,7 +17,28 @@ public class Particle {
 
     public Particle(ParticleFlavor flavor) {
         this.flavor = flavor;
-        lifespan = -1;
+        //Task 9:
+//        First, update the Particle.java constructor to set the lifespan based on the Particle’s flavor.
+//        You’ll see that the default implementation sets the lifespan to -1.
+//        Change the behavior so that if the flavor is PLANT, FLOWER, or FIRE,
+//        the lifespan is set according to the variables at the top of the class.
+//        Otherwise, the lifespan should remain -1. Use the LIFESPANS map for the cleanest code.
+//        使用if语句来实现
+        if (flavor == ParticleFlavor.PLANT || flavor == ParticleFlavor.FLOWER || flavor == ParticleFlavor.FIRE){
+            this.lifespan = LIFESPANS.get(flavor);
+        }else{
+//            this.flavor = ParticleFlavor.EMPTY;
+            //Task9中，在最后运行testLifespan的时候，由于此行代码漏写，导致测试不通过
+            //当火焰粒子寿命耗尽的时候，应该为空，但由于漏写了这行代码，导致，火焰粒子未如期消失
+            //但这串代码逻辑还是有问题的，应该Use the LIFESPANS map for the cleanest code.
+//            this.flavor = ParticleFlavor.EMPTY只管这个粒子的创造，而不管粒子的生命周期，生命周期是由lifespan来管理的
+
+            this.lifespan = -1;//这个应该是表示这个粒子永恒,不会随时间消失
+        }
+        //表达的逻辑是:根据粒子传入的粒子类型flavor,把对应的寿命(150、70或10)赋值给当前粒子的this.lifespan;
+//        如果不是这些特定类型，寿命就保持为默认的-1
+        //上方的代码中已经写了这个LIFESPANS这个方法了，里面涉及到了一个映射，当传入的粒子为FLOWER时候，方法会返回FLOWER_LIFESPAN，而FLOWER对应
+        //的LIFE_SPAN为75
     }
 
     public Color color() {
@@ -173,6 +194,34 @@ public class Particle {
 //            文中hint写到:use the lifespans map for the cleanest code
         }
 
+    }
+
+    public void decrementLifespan(){
+        //为什么要这么设计?
+//        if (this.lifespan > 0){
+//            this.lifespan -= 1;
+//        } else if (this.lifespan == 0) {
+//            this.flavor = ParticleFlavor.EMPTY;
+//            this.lifespan = -1;
+//        }
+        //使用以上逻辑的代码，出现了testLifespan通过不了的情况，
+        //显然，我们可以知道是代码逻辑上出现了问题，为什么使用else if就跑不通代码了呢?
+        //题目的意思是当粒子循环decrement后，递减为0之后，粒子就消失为空了，
+        //而顺序结构if刚好可以实现这个效果，在粒子寿命为0后，就直接为空了
+        //但else if语句实现的话，当它循环到第10次，粒子寿命递减为0后，它还要进行下一轮循环的判断才能让粒子消失为空
+//        顺序执行的 if： “递减”与“归零检查”在同一个周期内完成流水线结算。粒子寿命耗尽的那一刻，
+//            当场完成状态转变（消散为 EMPTY），刚好经过 10 个周期彻底结束。
+//        else if： 属于互斥分支。当递减分支命中后，归零分支在当期被短路跳过，
+    //        导致归零的粒子必须多活一个周期的“幽灵状态”，在第 11 轮才能被清理，
+    //        从而与测试预期的生命周期长度（10 轮）产生 1 轮的偏差。
+
+        if (this.lifespan > 0){
+            this.lifespan -= 1;
+        }
+        if (this.lifespan == 0) {
+            this.flavor = ParticleFlavor.EMPTY;
+            this.lifespan = -1;
+        }
     }
 
     public void burn(Map<Direction, Particle> neighbors) {
