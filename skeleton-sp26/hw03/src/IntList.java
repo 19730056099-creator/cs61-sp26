@@ -3,8 +3,8 @@ public class IntList {
     IntList rest;
 
     public IntList(int f, IntList r) {
-        first = f;
-        rest = r;
+        first = f;//first中存储的就是当前节点中的数据
+        rest = r;//rest中存储的是对下一个节点的引用
     }
 
     /** Return the size of the list using... recursion! */
@@ -65,7 +65,13 @@ public class IntList {
      */
     public int sum() {
         // Optional: Fill in this code
-        return 0;
+        IntList p = this;
+        int sum = 0;
+        while(p != null){
+            sum += p.first;
+            p = p.rest;
+        }
+        return sum;
     }
 
     /**
@@ -73,6 +79,16 @@ public class IntList {
      */
     public void addLast(int x) {
         // Optional: Fill in this code
+        IntList p = this;
+//        while(p != null){
+//            p = p.rest;
+//        }这个代码有问题，当代码循环找到了p = null，此时,p已经不指向任何节点了。没法再修改最后一个节点的rest.
+//        p = new IntList(x,null);这个是非破坏性代码，不符合题目要求
+        //解决方案是在p.rest == 0 的时候就停下来
+        while (p.rest != null){
+            p = p.rest;
+        }
+        p.rest = new IntList(x,null);
     }
 
     /**
@@ -83,5 +99,31 @@ public class IntList {
      */
     public void addFirst(int x) {
         // Optional: Fill in this code
+//        p.rest = new IntList(x,p.rest);//这样的话实际上新节点是插在第二个位置上的
+        //把原来头节点的内容"挪"到一个新节点里，然后把头节点改成要加的值：
+        this.rest = new IntList(this.first,this.rest);
+        this.first = x;
+    }
+
+    public static void main() {
+//            IntList L = new IntList(2,null);
+//            L.addFirst(3);
+//            L.addLast(5);
+//            System.out.println(L.sum());
+        //上述代码是用于测试sum()方法的
+        //在写完代码测试时，addFirst和addLast方法是没有被实现的，所以上述代码运行之后最后的结果是2
+        //因为实际上addFirst和addLast都没有生效，是是一个占位声明
+            IntList L = new IntList(2,null);
+            L.addLast(5);
+            L.addFirst(3);
+            System.out.println(L.sum());
     }
 }
+
+/*
+    破坏性与非破坏性
+        破坏性：原来的链表对象被改动了。addLast 里 p.rest = new IntList(x, null);
+               修改了原链表最后一个节点的 rest，调用之后，原来的 L 本身就变长了。
+        非破坏性：原链表一个节点都不动，而是返回一条新的链表，原来的 L 保持不变。
+    是否破坏性，与是否使用了new是无关的
+ */
