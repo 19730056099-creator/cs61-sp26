@@ -10,7 +10,7 @@ public interface Deque61B<T> {
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
      *
-     * @param x item to add
+     * @param x item to add1
      */
     void addFirst(T x);
 
