@@ -40,8 +40,12 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 //    没有 @Override：编译器不会报错，只会当成你新写了一个叫 addFrist 的方法，真正的 addFirst 其实没实现，bug 很难发现。
 //    有 @Override：编译器直接报错，告诉你"这个方法没有重写任何东西"。
     @Override
-    public void addFirst(Object x) {
-
+    public void addFirst(T x) {
+        size += 1;
+        sentinel.next = new Node(sentinel,x,sentinel.next);
+        sentinel.next.next.prev =sentinel.next;//如果没有这一串代码的话sentinel → N → A，但 A 的 prev 还指着 sentinel。
+        //而正确的逻辑应该是A的prev要指向N
+        //这也就是我们说的要注意释放改变指针的指向
     }
 
     /**
@@ -50,8 +54,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
      * @param x item to add
      */
     @Override
-    public void addLast(Object x) {
-
+    public void addLast(T x) {
+        size +=1;
+        sentinel.prev = new Node(sentinel.prev,x,sentinel);
+        sentinel.prev.prev.next = sentinel.prev;
     }
 
     /**
@@ -153,6 +159,9 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
 
     public static void main(String[] args) {
         Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(0);
+        lld.addFirst(-1);
+        lld.addLast(1);
 //        lld.addLast(0);//[0]
 //        lld.addLast(1);//[0,1]
 //        lld.addFirst(-1);//[-1,0,1]
