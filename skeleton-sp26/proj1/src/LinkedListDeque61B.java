@@ -69,8 +69,8 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
     @Override
     public List toList() {
         List<T> returnList = new ArrayList<>();
-        Node p = sentinel;              // 从第一个元素开始
-        while (p != null) {         // 没走回哨兵就继续
+        Node p = sentinel.next;              // 从第一个元素开始
+        while (p != sentinel) {         // 没走回哨兵就继续
             returnList.add(p.item);
             p = p.next;               // 走到下一个
         }
