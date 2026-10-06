@@ -110,7 +110,10 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T getFirst() {
-        return null;
+//        if (size == 0){
+//            return null;
+//        }
+        return sentinel.next.item;
     }
 
     /**
@@ -120,7 +123,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T getLast() {
-        return null;
+//        if (size == 0){
+//            return null;
+//        }
+        //经过claude的指点，发现这个if 其实可以不用写,当size == 0的时候，setinel.prev其实指向的是自己
+        //所以sentinel.prev.item其实就是自己的item，为null
+        //同理,getFirst也是一个道理
+        return sentinel.prev.item;
     }
 
     /**

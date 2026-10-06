@@ -2,6 +2,8 @@ import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Deque;
+
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
@@ -89,5 +91,26 @@ public class LinkedListDeque61BTest {
 
         lld.addLast(5);
         assertThat(lld.size()).isEqualTo(3);
+    }
+
+    @Test
+    //Test
+    /*** This tset performs interspersed getFirst and getLast calls */
+    public void getFirstAndLastTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //要获取，肯定要区分为 Deque61B 为空 和不为空的情况
+        //先是为空的时候
+        assertThat(lld.getFirst()).isEqualTo(null);
+        assertThat(lld.getLast()).isEqualTo(null);
+        //不为空的时候
+        //这个是在claude的提醒下添加的，当只有一个元素的时候，第一个和最后一个是同一个节点的时候，这是很容易出现bug的时候
+        lld.addFirst(10);
+        assertThat(lld.getFirst()).isEqualTo(10);
+        assertThat(lld.getLast()).isEqualTo(10);
+        //添加完这个只有一个元素的情况后，测试依旧通过
+
+        lld.addLast(5);
+        assertThat(lld.getFirst()).isEqualTo(10);
+        assertThat(lld.getLast()).isEqualTo(5);
     }
 }
