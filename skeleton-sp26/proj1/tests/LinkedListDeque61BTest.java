@@ -94,7 +94,6 @@ public class LinkedListDeque61BTest {
     }
 
     @Test
-    //Test
     /*** This tset performs interspersed getFirst and getLast calls */
     public void getFirstAndLastTest(){
         Deque61B<Integer> lld = new LinkedListDeque61B<>();
@@ -113,4 +112,31 @@ public class LinkedListDeque61BTest {
         assertThat(lld.getFirst()).isEqualTo(10);
         assertThat(lld.getLast()).isEqualTo(5);
     }
+
+    @Test
+    /** This test performs is get **/
+    public void getTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+
+        assertThat(lld.get(28723)).isEqualTo(null);
+        assertThat(lld.get(-1)).isEqualTo(null);
+        assertThat(lld.get(0)).isEqualTo(10);
+
+    }
+
+    @Test
+    /** This test performs is getRecursive **/
+    //操蛋了，理解错了，这个是递归取得而不是逆序取得
+    public void getRecursiveTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+        lld.addLast(5);
+
+        assertThat(lld.getRecursive(28723)).isEqualTo(null);
+        assertThat(lld.getRecursive(-1)).isEqualTo(null);
+        assertThat(lld.getRecursive(1)).isEqualTo(5);
+        System.out.println(lld.getRecursive(0));
+    }
+
 }
