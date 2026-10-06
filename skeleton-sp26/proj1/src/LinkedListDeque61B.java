@@ -84,7 +84,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public boolean isEmpty() {
-        return false;
+//        if (size == 0){
+//            return true;
+//        }
+//        return false;
+        //这样写，逻辑完全没有问题
+        //但是可以更加简洁一些，因为size==0这个表达式表达式本身就会算出true和false
+        return size==0;
     }
 
     /**
@@ -94,7 +100,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**

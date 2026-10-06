@@ -28,33 +28,66 @@ public class LinkedListDeque61BTest {
           */
      }
 
-    // @Test
-    // /** In this test, we use only one assertThat statement. IMO this test is just as good as addFirstTestBasic.
-    //  *  In other words, the tedious work of adding the extra assertThat statements isn't worth it. */
-    // public void addLastTestBasic() {
-    //     Deque61B<String> lld1 = new LinkedListDeque61B<>();
+     @Test
+     /** In this test, we use only one assertThat statement. IMO this test is just as good as addFirstTestBasic.
+      *  In other words, the tedious work of adding the extra assertThat statements isn't worth it. */
+     public void addLastTestBasic() {
+         Deque61B<String> lld1 = new LinkedListDeque61B<>();
 
-    //     lld1.addLast("front"); // after this call we expect: ["front"]
-    //     lld1.addLast("middle"); // after this call we expect: ["front", "middle"]
-    //     lld1.addLast("back"); // after this call we expect: ["front", "middle", "back"]
-    //     assertThat(lld1.toList()).containsExactly("front", "middle", "back").inOrder();
-    // }
+         lld1.addLast("front"); // after this call we expect: ["front"]
+         lld1.addLast("middle"); // after this call we expect: ["front", "middle"]
+         lld1.addLast("back"); // after this call we expect: ["front", "middle", "back"]
+         assertThat(lld1.toList()).containsExactly("front", "middle", "back").inOrder();
+     }
 
-    // @Test
-    // /** This test performs interspersed addFirst and addLast calls. */
-    // public void addFirstAndAddLastTest() {
-    //     Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
+     @Test
+     /** This test performs interspersed addFirst and addLast calls. */
+     public void addFirstAndAddLastTest() {
+         Deque61B<Integer> lld1 = new LinkedListDeque61B<>();
 
-    //     /* I've decided to add in comments the state after each call for the convenience of the
-    //        person reading this test. Some programmers might consider this excessively verbose. */
-    //     lld1.addLast(0);   // [0]
-    //     lld1.addLast(1);   // [0, 1]
-    //     lld1.addFirst(-1); // [-1, 0, 1]
-    //     lld1.addLast(2);   // [-1, 0, 1, 2]
-    //     lld1.addFirst(-2); // [-2, -1, 0, 1, 2]
+         /* I've decided to add in comments the state after each call for the convenience of the
+            person reading this test. Some programmers might consider this excessively verbose. */
+         lld1.addLast(0);   // [0]
+         lld1.addLast(1);   // [0, 1]
+         lld1.addFirst(-1); // [-1, 0, 1]
+         lld1.addLast(2);   // [-1, 0, 1, 2]
+         lld1.addFirst(-2); // [-2, -1, 0, 1, 2]
 
-    //     assertThat(lld1.toList()).containsExactly(-2, -1, 0, 1, 2).inOrder();
-    // }
+         assertThat(lld1.toList()).containsExactly(-2, -1, 0, 1, 2).inOrder();
+     }
 
     // Below, you'll write your own tests for LinkedListDeque61B.
+
+    //按照先写测试，再实现方法的原则(驱动开发),我先开发了测试
+    //测试写完之后，发现测试不通过，我还以为是代码写错了
+    //再一想，isEmpty方法都没有实现，测试怎么可能成功呢
+    @Test
+    /** This test performs is Empty **/
+    public void isEmptyTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //刚创建: 空
+        assertThat(lld.isEmpty()).isTrue();
+
+        //创建后加入元素: 非空
+        lld.addFirst(10);
+        assertThat(lld.isEmpty()).isFalse();
+    }
+
+    @Test
+    /** This test performs is size() **/
+    public void sizeTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //刚创建的时候，双端队列为空，没有元素，所以size应该为0
+        assertThat(lld.size()).isEqualTo(0);
+
+        //创建后，加入元素
+        lld.addFirst(3);
+        assertThat(lld.size()).isEqualTo(1);
+
+        lld.addLast(3);
+        assertThat(lld.size()).isEqualTo(2);
+
+        lld.addLast(5);
+        assertThat(lld.size()).isEqualTo(3);
+    }
 }
