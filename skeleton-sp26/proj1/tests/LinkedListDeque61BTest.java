@@ -160,4 +160,76 @@ public class LinkedListDeque61BTest {
         assertThat(lld.removeLast()).isEqualTo(5);
         assertThat(lld.get(0)).isEqualTo(10);
     }
+
+    /**
+     * “remove_first_to_empty”: Add some elements to a deque and remove almost all of them.
+     *                          Check that removing the last element with removeFirst works.
+     * **/
+    @Test
+    public void addLastAfterRemoveToEmpty(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addLast(10);
+        lld.addLast(9);
+        lld.addLast(8);
+        lld.removeLast();
+        lld.removeLast();
+        lld.removeFirst();
+        lld.addLast(6);
+        assertThat(lld.get(0)).isEqualTo(6);
+    }
+
+    @Test
+    /**
+     *“remove_last_to_empty”: Add some elements to a deque and remove almost all of them.
+     *                        Check that removing the last element with removeLast works.
+     * **/
+    public void addFirstAfterRemoveToEmpty(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+        lld.addFirst(9);
+        lld.addFirst(8);
+        lld.removeFirst();
+        lld.removeLast();
+        lld.removeLast();
+        lld.addFirst(6);
+        assertThat(lld.get(0)).isEqualTo(6);
+    }
+
+    @Test
+    /**
+    *“remove_first_to_one”: Add some elements to a deque and remove almost all of them.
+     *                      Check that removing the second to last element with removeFirst works.
+         **/
+    public void removeFirstToOne(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+        lld.addLast(9);
+        lld.addLast(8);
+        lld.addLast(7);
+        assertThat(lld.toList()).containsExactly(10,9,8,7).inOrder();
+        lld.removeFirst();
+        lld.removeLast();
+        assertThat(lld.toList()).containsExactly(9,8).inOrder();
+        assertThat(lld.removeFirst()).isEqualTo(9);
+        assertThat(lld.get(0)).isEqualTo(8);
+    }
+
+    @Test
+    /**
+    “remove_last_to_one”: Add some elements to a deque and remove almost all of them.
+                        Check that removing the second to last element with removeLast works.
+     **/
+    public void removeLastToOne(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+        lld.addLast(9);
+        lld.addLast(8);
+        lld.addLast(7);
+        assertThat(lld.toList()).containsExactly(10,9,8,7).inOrder();
+        lld.removeFirst();
+        lld.removeLast();
+        assertThat(lld.toList()).containsExactly(9,8).inOrder();
+        lld.removeLast();
+        assertThat(lld.removeLast()).isEqualTo(9);
+    }
 }
