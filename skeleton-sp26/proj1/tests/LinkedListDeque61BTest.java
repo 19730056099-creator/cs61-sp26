@@ -94,52 +94,6 @@ public class LinkedListDeque61BTest {
     }
 
     @Test
-    /*** This tset performs interspersed getFirst and getLast calls */
-    public void getFirstAndLastTest(){
-        Deque61B<Integer> lld = new LinkedListDeque61B<>();
-        //要获取，肯定要区分为 Deque61B 为空 和不为空的情况
-        //先是为空的时候
-        assertThat(lld.getFirst()).isEqualTo(null);
-        assertThat(lld.getLast()).isEqualTo(null);
-        //不为空的时候
-        //这个是在claude的提醒下添加的，当只有一个元素的时候，第一个和最后一个是同一个节点的时候，这是很容易出现bug的时候
-        lld.addFirst(10);
-        assertThat(lld.getFirst()).isEqualTo(10);
-        assertThat(lld.getLast()).isEqualTo(10);
-        //添加完这个只有一个元素的情况后，测试依旧通过
-
-        lld.addLast(5);
-        assertThat(lld.getFirst()).isEqualTo(10);
-        assertThat(lld.getLast()).isEqualTo(5);
-    }
-
-    @Test
-    /** This test performs is get **/
-    public void getTest(){
-        Deque61B<Integer> lld = new LinkedListDeque61B<>();
-        lld.addFirst(10);
-
-        assertThat(lld.get(28723)).isEqualTo(null);
-        assertThat(lld.get(-1)).isEqualTo(null);
-        assertThat(lld.get(0)).isEqualTo(10);
-
-    }
-
-    @Test
-    /** This test performs is getRecursive **/
-    //操蛋了，理解错了，这个是递归取得而不是逆序取得
-    public void getRecursiveTest(){
-        Deque61B<Integer> lld = new LinkedListDeque61B<>();
-        lld.addFirst(10);
-        lld.addLast(5);
-
-        assertThat(lld.getRecursive(28723)).isEqualTo(null);
-        assertThat(lld.getRecursive(-1)).isEqualTo(null);
-        assertThat(lld.getRecursive(1)).isEqualTo(5);
-        System.out.println(lld.getRecursive(0));
-    }
-
-    @Test
     /** This test performs is RemoveFirst **/
     public void RemoveFirstTest(){
         Deque61B<Integer> lld = new LinkedListDeque61B<>();
@@ -232,4 +186,64 @@ public class LinkedListDeque61BTest {
         lld.removeLast();
         assertThat(lld.removeLast()).isEqualTo(9);
     }
+
+    //Flags for get tests
+    @Test
+//    “get_first_empty”: Check that getFirst works.
+//    “get_last_empty”: Check that getLast works.
+//    “get_first_valid”: Check that getFirst works on a empty deque.
+//    “get_last_valid”: Check that getLast works on a empty deque.
+    /*** This tset performs interspersed getFirst and getLast calls */
+    public void getFirstAndLastTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //要获取，肯定要区分为 Deque61B 为空 和不为空的情况
+        //先是为空的时候
+        assertThat(lld.getFirst()).isEqualTo(null);
+        assertThat(lld.getLast()).isEqualTo(null);
+        //不为空的时候
+        //这个是在claude的提醒下添加的，当只有一个元素的时候，第一个和最后一个是同一个节点的时候，这是很容易出现bug的时候
+        lld.addFirst(10);
+        assertThat(lld.getFirst()).isEqualTo(10);
+        assertThat(lld.getLast()).isEqualTo(10);
+        //添加完这个只有一个元素的情况后，测试依旧通过
+
+        lld.addLast(5);
+        assertThat(lld.getFirst()).isEqualTo(10);
+        assertThat(lld.getLast()).isEqualTo(5);
+    }
+
+    @Test
+//    “get_valid”: Check that get works on a valid index.
+//    “get_oob_large”: Check that get works on a large, out of bounds index.
+//    “get_oob_neg”: Check that get works on a negative index.
+
+    /** This test performs is get **/
+    public void getTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+
+        assertThat(lld.get(28723)).isEqualTo(null);
+        assertThat(lld.get(-1)).isEqualTo(null);
+        assertThat(lld.get(0)).isEqualTo(10);
+
+    }
+
+    @Test
+//    “get_recursive_valid”: Check that getRecursive works on a valid index.
+//    “get_recursive_oob_large”: Check that getRecursive works on a large, out of bounds index.
+//    “get_recursive_oob_neg”: Check that getRecursive works on a negative index.
+    /** This test performs is getRecursive **/
+    //操蛋了，理解错了，这个是递归取得而不是逆序取得
+    public void getRecursiveTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        lld.addFirst(10);
+        lld.addLast(5);
+
+        assertThat(lld.getRecursive(28723)).isEqualTo(null);
+        assertThat(lld.getRecursive(-1)).isEqualTo(null);
+        assertThat(lld.getRecursive(1)).isEqualTo(5);
+        System.out.println(lld.getRecursive(0));
+    }
+
+
 }
