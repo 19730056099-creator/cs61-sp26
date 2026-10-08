@@ -294,5 +294,21 @@ public class LinkedListDeque61BTest {
         assertThat(lld.isEmpty()).isFalse();
     }
 
-    
+
+    //Flags for toList tests
+
+    @Test
+//    “to_list_empty”: Check that toList works with empty LinkedListDeque61B.
+//    “to_list_nonempty”: Check that toList works with non-empty LinkedListDeque61B.
+    public void toListEmptyAndToListNonempty(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+
+        assertThat(lld.toList()).containsExactly().inOrder();
+        lld.addFirst(10);
+        lld.addLast(9);
+        lld.addLast(8);
+        lld.addLast(7);
+        lld.addLast(6);
+        assertThat(lld.toList()).containsExactly(10,9,8,7,6).inOrder();
+    }
 }
