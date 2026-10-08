@@ -75,23 +75,7 @@ public class LinkedListDeque61BTest {
         assertThat(lld.isEmpty()).isFalse();
     }
 
-    @Test
-    /** This test performs is size() **/
-    public void sizeTest(){
-        Deque61B<Integer> lld = new LinkedListDeque61B<>();
-        //刚创建的时候，双端队列为空，没有元素，所以size应该为0
-        assertThat(lld.size()).isEqualTo(0);
-
-        //创建后，加入元素
-        lld.addFirst(3);
-        assertThat(lld.size()).isEqualTo(1);
-
-        lld.addLast(3);
-        assertThat(lld.size()).isEqualTo(2);
-
-        lld.addLast(5);
-        assertThat(lld.size()).isEqualTo(3);
-    }
+    //Flags for remove tests
 
     @Test
     /** This test performs is RemoveFirst **/
@@ -103,7 +87,6 @@ public class LinkedListDeque61BTest {
         assertThat(lld.removeFirst()).isEqualTo(10);
         assertThat(lld.get(0)).isEqualTo(5);
     }
-
     @Test
     /** This test performs is RemoveLast **/
     public void RemoveLastTest(){
@@ -188,6 +171,7 @@ public class LinkedListDeque61BTest {
     }
 
     //Flags for get tests
+
     @Test
 //    “get_first_empty”: Check that getFirst works.
 //    “get_last_empty”: Check that getLast works.
@@ -211,7 +195,6 @@ public class LinkedListDeque61BTest {
         assertThat(lld.getFirst()).isEqualTo(10);
         assertThat(lld.getLast()).isEqualTo(5);
     }
-
     @Test
 //    “get_valid”: Check that get works on a valid index.
 //    “get_oob_large”: Check that get works on a large, out of bounds index.
@@ -245,5 +228,65 @@ public class LinkedListDeque61BTest {
         System.out.println(lld.getRecursive(0));
     }
 
+    //Flags for size tests
+    @Test
+//    “size”: Check that size works.
+    /** This test performs is size() **/
+    public void sizeTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //刚创建的时候，双端队列为空，没有元素，所以size应该为0
+        assertThat(lld.size()).isEqualTo(0);
 
+        //创建后，加入元素
+        lld.addFirst(3);
+        assertThat(lld.size()).isEqualTo(1);
+
+        lld.addLast(3);
+        assertThat(lld.size()).isEqualTo(2);
+
+        lld.addLast(5);
+        assertThat(lld.size()).isEqualTo(3);
+    }
+
+    @Test
+//    “size_after_remove_to_empty”: Add some elements to a deque and remove them all,
+//                                  then check that size still works.
+    public void sizeAfterRemoveToEmpty(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //刚创建的时候，双端队列为空，没有元素，所以size应该为0
+        assertThat(lld.size()).isEqualTo(0);
+
+        //创建后，加入元素后,检查size
+        lld.addFirst(3);
+        lld.addLast(3);
+        lld.addLast(5);
+        assertThat(lld.size()).isEqualTo(3);
+        assertThat(lld.toList()).containsExactly(3,3,5).inOrder();
+
+        //全部删除时候再检查这个size
+        lld.removeFirst();
+        lld.removeLast();
+        lld.removeLast();
+        assertThat(lld.toList()).containsExactly();//当列表为空的时候，containsExactly()中不需要填写null,
+                                                // 为空的话默认就是null了,如果加入null的话，该方法会认为需要包含"null"字符串
+        assertThat(lld.size()).isEqualTo(0);
+    }
+
+    @Test
+//    “size_after_remove_from_empty”: Remove from an empty deque, then check that size still works.
+    //该场景检测的是，对空列表使用remove，这个size不能变成负数
+    public void sizeAfterRemoveFromEmpty(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        assertThat(lld.removeFirst()).isEqualTo(null);
+        assertThat(lld.removeLast()).isEqualTo(null);
+        System.out.println(lld.size());
+        assertThat(lld.size()).isEqualTo(0);
+        //使用断言表达式
+//        isAtLeast(x)：大于等于 x
+//        isAtMost(x)：小于等于 x
+//        isGreaterThan(x)：大于 x
+//        isLessThan(x)：小于 x
+        //但是这个场景中不适合用这个断言方法，因为如果bug导致此时这个size变为1或5的话
+        //isEqualTo(0)依旧能把这个错误捕获出来
+    }
 }
