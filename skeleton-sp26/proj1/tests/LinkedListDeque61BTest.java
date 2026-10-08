@@ -60,22 +60,6 @@ public class LinkedListDeque61BTest {
 
     // Below, you'll write your own tests for LinkedListDeque61B.
 
-    //按照先写测试，再实现方法的原则(驱动开发),我先开发了测试
-    //测试写完之后，发现测试不通过，我还以为是代码写错了
-    //再一想，isEmpty方法都没有实现，测试怎么可能成功呢
-    @Test
-    /** This test performs is Empty **/
-    public void isEmptyTest(){
-        Deque61B<Integer> lld = new LinkedListDeque61B<>();
-        //刚创建: 空
-        assertThat(lld.isEmpty()).isTrue();
-
-        //创建后加入元素: 非空
-        lld.addFirst(10);
-        assertThat(lld.isEmpty()).isFalse();
-    }
-
-    //Flags for remove tests
 
     @Test
     /** This test performs is RemoveFirst **/
@@ -87,6 +71,7 @@ public class LinkedListDeque61BTest {
         assertThat(lld.removeFirst()).isEqualTo(10);
         assertThat(lld.get(0)).isEqualTo(5);
     }
+
     @Test
     /** This test performs is RemoveLast **/
     public void RemoveLastTest(){
@@ -97,7 +82,6 @@ public class LinkedListDeque61BTest {
         assertThat(lld.removeLast()).isEqualTo(5);
         assertThat(lld.get(0)).isEqualTo(10);
     }
-
     /**
      * “remove_first_to_empty”: Add some elements to a deque and remove almost all of them.
      *                          Check that removing the last element with removeFirst works.
@@ -131,6 +115,8 @@ public class LinkedListDeque61BTest {
         lld.addFirst(6);
         assertThat(lld.get(0)).isEqualTo(6);
     }
+
+    //Flags for remove tests
 
     @Test
     /**
@@ -170,6 +156,7 @@ public class LinkedListDeque61BTest {
         assertThat(lld.removeLast()).isEqualTo(9);
     }
 
+
     //Flags for get tests
 
     @Test
@@ -195,6 +182,7 @@ public class LinkedListDeque61BTest {
         assertThat(lld.getFirst()).isEqualTo(10);
         assertThat(lld.getLast()).isEqualTo(5);
     }
+
     @Test
 //    “get_valid”: Check that get works on a valid index.
 //    “get_oob_large”: Check that get works on a large, out of bounds index.
@@ -210,7 +198,6 @@ public class LinkedListDeque61BTest {
         assertThat(lld.get(0)).isEqualTo(10);
 
     }
-
     @Test
 //    “get_recursive_valid”: Check that getRecursive works on a valid index.
 //    “get_recursive_oob_large”: Check that getRecursive works on a large, out of bounds index.
@@ -229,6 +216,7 @@ public class LinkedListDeque61BTest {
     }
 
     //Flags for size tests
+
     @Test
 //    “size”: Check that size works.
     /** This test performs is size() **/
@@ -247,7 +235,6 @@ public class LinkedListDeque61BTest {
         lld.addLast(5);
         assertThat(lld.size()).isEqualTo(3);
     }
-
     @Test
 //    “size_after_remove_to_empty”: Add some elements to a deque and remove them all,
 //                                  then check that size still works.
@@ -289,4 +276,23 @@ public class LinkedListDeque61BTest {
         //但是这个场景中不适合用这个断言方法，因为如果bug导致此时这个size变为1或5的话
         //isEqualTo(0)依旧能把这个错误捕获出来
     }
+
+    //Flags for isEmpty tests
+
+    //按照先写测试，再实现方法的原则(驱动开发),我先开发了测试
+    //测试写完之后，发现测试不通过，我还以为是代码写错了
+    //再一想，isEmpty方法都没有实现，测试怎么可能成功呢
+    @Test
+    /** This test performs is Empty **/
+    public void isEmptyTest(){
+        Deque61B<Integer> lld = new LinkedListDeque61B<>();
+        //刚创建: 空
+        assertThat(lld.isEmpty()).isTrue();
+
+        //创建后加入元素: 非空
+        lld.addFirst(10);
+        assertThat(lld.isEmpty()).isFalse();
+    }
+
+    
 }
