@@ -132,6 +132,13 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
         return sentinel.prev.item;
     }
 
+
+    //针对两个remove方法的改进
+//    用"只剩一个元素"的情况检查一下：sentinel ⇄ N，removeFirst 时 first.next 就是 sentinel，
+//    所以两行分别变成 sentinel.next = sentinel、sentinel.prev = sentinel，正好恢复成空链表的样子 ✓。这也正是那两个"删空再添加"测试要检查的。
+//
+//    用临时变量 first、last 的写法，和之前 addFirst 里用 oldFirst 是同一个思路，比 sentinel.next.next 这样的长链更好读。
+
     /**
      * Remove and return the element at the front of the deque, if it exists.
      *
@@ -143,9 +150,14 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
             return null;
         }
 //        sentinel->N-->A
-        T r = sentinel.next.item;
-        sentinel.next = sentinel.next.next;
-        return r;
+//        T r = sentinel.next.item;
+//        sentinel.next = sentinel.next.next;
+//        return r;
+        Node first = sentinel.next;
+        sentinel.next = first.next;
+        first.next.prev = sentinel;
+        size -= 1;
+        return first.item;
     }
 
     /**
@@ -159,9 +171,14 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
             return null;
         }
 //        sentinel->N-->A
-        T r = sentinel.prev.item;
-        sentinel.prev = sentinel.prev.prev;
-        return r;
+//        T r = sentinel.prev.item;
+//        sentinel.prev = sentinel.prev.prev;
+//        return r;
+        Node last = sentinel.prev;
+        sentinel.prev = last.prev;
+        last.prev.next = sentinel;
+        size -= 1;
+        return last.item;
     }
 
     /**
