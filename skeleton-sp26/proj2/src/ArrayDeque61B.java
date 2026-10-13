@@ -95,8 +95,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         if (size == 0){
             return null;
         }
-        int itemindex = nextFirst + 1;
-        return items[itemindex];
+        return items[plusOne(nextFirst)];
     }
 
     /**
@@ -109,8 +108,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         if (size == 0){
             return null;
         }
-        int itemindex = nextLast - 1;
-        return items[itemindex];
+        return items[minusOne(nextLast)];
     }
 
     /**
