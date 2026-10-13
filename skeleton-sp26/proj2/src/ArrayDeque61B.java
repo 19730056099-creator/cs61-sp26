@@ -66,26 +66,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     /**
-     * Returns if the deque is empty. Does not alter the deque.
-     *
-     * @return {@code true} if the deque has no elements, {@code false} otherwise.
-     */
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    /**
-     * Returns the size of the deque. Does not alter the deque.
-     *
-     * @return the number of items in the deque.
-     */
-    @Override
-    public int size() {
-        return 0;
-    }
-
-    /**
      * Return the element at the front of the deque, if it exists.
      *
      * @return element, otherwise {@code null}.
@@ -149,6 +129,26 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public T getRecursive(int index) {
         throw new UnsupportedOperationException("No need to implement getRecursive for ArrayDeque61B.");
+    }
+
+    /**
+     * Returns if the deque is empty. Does not alter the deque.
+     *
+     * @return {@code true} if the deque has no elements, {@code false} otherwise.
+     */
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * Returns the size of the deque. Does not alter the deque.
+     *
+     * @return the number of items in the deque.
+     */
+    @Override
+    public int size() {
+        return size;
     }
 
     /**

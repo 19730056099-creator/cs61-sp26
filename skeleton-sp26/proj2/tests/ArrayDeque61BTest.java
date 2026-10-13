@@ -42,4 +42,18 @@ public class ArrayDeque61BTest {
         assertThat(test.getRecursive(9)).isNull();
     }
 
+    /** a test for the isEmpty and size methods **/
+    @Test
+    public void isEmptyAndSizeTest(){
+        Deque61B<Integer> test = new ArrayDeque61B<>();
+        //队列为空
+        assertThat(test.isEmpty()).isTrue();
+        assertThat(test.size()).isEqualTo(0);
+        //队列非空
+        test.addFirst(6);
+        test.addLast(7);
+        test.addLast(8);
+        assertThat(test.isEmpty()).isFalse();
+        assertThat(test.size()).isEqualTo(3);
+    }
 }
