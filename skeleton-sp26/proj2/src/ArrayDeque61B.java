@@ -92,7 +92,11 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T getFirst() {
-        return null;
+        if (size == 0){
+            return null;
+        }
+        int itemindex = nextFirst + 1;
+        return items[itemindex];
     }
 
     /**
@@ -102,6 +106,24 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T getLast() {
+        if (size == 0){
+            return null;
+        }
+        int itemindex = nextLast - 1;
+        return items[itemindex];
+    }
+
+    /**
+     * The Deque61B abstract data type does not typically have a get method,
+     * but we've included this extra operation to provide you with some
+     * extra programming practice. Gets the element, iteratively. Returns
+     * null if index is out of bounds. Does not alter the deque.
+     *
+     * @param index index to get
+     * @return element at {@code index} in the deque
+     */
+    @Override
+    public T get(int index) {
         return null;
     }
 
@@ -122,20 +144,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T removeLast() {
-        return null;
-    }
-
-    /**
-     * The Deque61B abstract data type does not typically have a get method,
-     * but we've included this extra operation to provide you with some
-     * extra programming practice. Gets the element, iteratively. Returns
-     * null if index is out of bounds. Does not alter the deque.
-     *
-     * @param index index to get
-     * @return element at {@code index} in the deque
-     */
-    @Override
-    public T get(int index) {
         return null;
     }
 
