@@ -122,7 +122,33 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T get(int index) {
-        return null;
+//        if (index > items.length| index < 0 | index >= size){
+//            return null;
+//        }
+        //index > items.length可以删除，因为其实index>=size已经包含这个条件了
+        if (index < 0 | index >= size){
+            return null;
+        }
+        //|和||的区别,||只要前面成立就不在往下算
+        int start = plusOne(nextFirst);
+        return items[(start + index) % items.length];
+//        return items[index];
+        //在使用者的角度用户根本不知道我们的起始点是从那个索引下标开始的，也不需要知道，这些其实都应该封装起来
+        //所以使用这个start来定义起始点，index作为具体的索引下标，当索引下标start + index > 数组的长度的时候，取余，达成回环的操作
+
+    }
+
+    /**
+     * This method technically shouldn't be in the interface, but it's here
+     * to make testing nice. Gets an element, recursively. Returns null if
+     * index is out of bounds. Does not alter the deque.
+     *
+     * @param index index to get
+     * @return element at {@code index} in the deque
+     */
+    @Override
+    public T getRecursive(int index) {
+        throw new UnsupportedOperationException("No need to implement getRecursive for ArrayDeque61B.");
     }
 
     /**
@@ -142,19 +168,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T removeLast() {
-        return null;
-    }
-
-    /**
-     * This method technically shouldn't be in the interface, but it's here
-     * to make testing nice. Gets an element, recursively. Returns null if
-     * index is out of bounds. Does not alter the deque.
-     *
-     * @param index index to get
-     * @return element at {@code index} in the deque
-     */
-    @Override
-    public T getRecursive(int index) {
         return null;
     }
 }

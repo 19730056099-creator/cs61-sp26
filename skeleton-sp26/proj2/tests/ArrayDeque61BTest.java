@@ -21,4 +21,25 @@ public class ArrayDeque61BTest {
         assertThat(test.getFirst()).isEqualTo(7);
         assertThat(test.getLast()).isEqualTo(8);
     }
+
+    /** a test for the getFirst and getLast methods **/
+    @Test
+    public void getAndGetRecursiveTest(){
+        Deque61B<Integer> test = new ArrayDeque61B<Integer>();
+        assertThat(test.get(-1)).isNull();
+        assertThat(test.getRecursive(-1)).isNull();
+        assertThat(test.get(9)).isNull();
+        assertThat(test.getRecursive(9)).isNull();
+        assertThat(test.get(0)).isNull();
+        assertThat(test.getRecursive(0)).isNull();
+        test.addFirst(6);
+        assertThat(test.get(0)).isEqualTo(6);
+        assertThat(test.getRecursive(0)).isEqualTo(6);
+        //第一遍的时候错误，因为get方法就没有写好。没有站在使用者的角度考虑
+        assertThat(test.get(-1)).isNull();
+        assertThat(test.getRecursive(-1)).isNull();
+        assertThat(test.get(9)).isNull();
+        assertThat(test.getRecursive(9)).isNull();
+    }
+
 }
