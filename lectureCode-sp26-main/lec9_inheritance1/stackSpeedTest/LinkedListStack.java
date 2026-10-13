@@ -1,7 +1,7 @@
-package lec8_inheritance1.stackSpeedTest;
+package lec9_inheritance1.stackSpeedTest;
 import java.util.EmptyStackException;
 
-public class LinkedListStack<E> implements Stack<E> {
+public class LinkedListStack<E> implements lec8_inheritance1.stackSpeedTest.Stack<E> {
     private Node<E> top;
     private int size;
 

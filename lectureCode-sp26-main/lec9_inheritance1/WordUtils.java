@@ -1,6 +1,7 @@
 package lec9_inheritance1;
 
 public class WordUtils {
+    //定义一个公开的静态方法 longest,接收一个存字符串的链表,返回其中的一个字符串(很可能是最长的那个)。
     public static String longest(List61B<String> list) {
         int maxDex = 0;
         for (int i = 0; i < list.size(); i += 1) {

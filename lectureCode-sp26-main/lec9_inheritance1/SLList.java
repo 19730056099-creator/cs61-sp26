@@ -1,5 +1,7 @@
 package lec9_inheritance1;
 
+import org.eclipse.jetty.util.IO;
+
 /** An SLList is a list of integers, which hides the terrible truth
    * of the nakedness within. */
 public class SLList<Blorp> implements List61B<Blorp> {
@@ -133,7 +135,7 @@ public class SLList<Blorp> implements List61B<Blorp> {
         Node p = sentinel;
         while (p.next != null) {
             p = p.next;
-            IO.println(p.item);
+			System.out.println(p.item);
         }
     }
 

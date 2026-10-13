@@ -75,14 +75,19 @@ public class ArraySet<T> implements Iterable<T> {
         return new ArraySetIterator();
     }
 
+    /**
+     * StringBuilder相当于是草稿，草稿可以修改，例如添加什么字段，或者减去什么字段
+     * 但当toString之后，returnString就会变成真正的字符串类型，此时不可修改，相当于最终稿
+     * **/
     @Override
     public String toString() {
         StringBuilder returnString = new StringBuilder("[");
+        //StringBuilder是java中自带的一个类，专门用来高效地拼接字符串。
         for (T x : this) {
             returnString.append(x).append(", ");
         }
         returnString.append("]");
-        return returnString.toString();
+        return returnString.toString();//这个是对toString方法进行彻底地重写
     }
 
     public boolean equals(ArraySet o) {
@@ -114,10 +119,10 @@ public class ArraySet<T> implements Iterable<T> {
             System.out.println(i);
         }
 
-        /*Iterator<Integer> seer = aset.iterator();
-        while (seer.hasNext()) {
-            System.out.println(seer.next());
-        }*/
+//        Iterator<Integer> seer = aset.iterator();
+//        while (seer.hasNext()) {
+//            System.out.println(seer.next());
+//        }
 
         System.out.println(aset);
         aset.equals(List.of(1, 2, 3));
