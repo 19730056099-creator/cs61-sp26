@@ -174,6 +174,13 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     /**
+     * Returns the length of the ArrayDeque61B. Does not alter the deque.
+     **/
+    public int length(){
+        return items.length;
+    }
+
+    /**
      * Returns a List copy of the deque. Does not alter the deque.
      *
      * @return a new list copy of the deque.
@@ -203,7 +210,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         nextFirst = firstIndex;
         size--;
 //        if( (size / items.length) < 0.25){//这个判断条件很严重,这样的话整型数据类型相处，会丢失小数位，必须要在比较前强转
-        if(items.length >= 16 && (double) size / items.length < 0.25){
+        if(items.length >= 8 && (double) size / items.length <= 0.25){
             resizedown();//还是得有一个过程，因为你删除元素也是一次一次操作的，所以这个缩容的操作也不可能一次就操作完毕，所以使用if
         }
         return temp;
@@ -224,7 +231,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         items[lastIndex] = null;
         nextLast = lastIndex;
         size--;
-        if(items.length >= 16 && (double) size / items.length < 0.25){
+        if(items.length >= 8 && (double) size / items.length <= 0.25){
             resizedown();//同removeFirst一样
         }
         return temp;
