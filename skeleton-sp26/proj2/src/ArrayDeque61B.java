@@ -43,6 +43,16 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         nextLast = size;
     }
 
+    /** a method for resizing up **/
+    public void resizedown(){
+        T[] temp = (T[]) new Object[items.length / 2];
+        for(int i = 0;i < size;i++){
+            temp[i] = items[(nextFirst + 1 + i) % items.length];
+        }
+        items = temp;
+        nextFirst = items.length - 1;   // 注意：这里 items 已经是新数组了
+        nextLast = size;
+    }
 
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
@@ -192,6 +202,10 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         items[firstIndex] = null;//清除引用
         nextFirst = firstIndex;
         size--;
+//        if( (size / items.length) < 0.25){//这个判断条件很严重,这样的话整型数据类型相处，会丢失小数位，必须要在比较前强转
+        if(items.length >= 16 && (double) size / items.length < 0.25){
+            resizedown();//还是得有一个过程，因为你删除元素也是一次一次操作的，所以这个缩容的操作也不可能一次就操作完毕，所以使用if
+        }
         return temp;
     }
 
@@ -210,6 +224,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         items[lastIndex] = null;
         nextLast = lastIndex;
         size--;
+        if(items.length >= 16 && (double) size / items.length < 0.25){
+            resizedown();//同removeFirst一样
+        }
         return temp;
     }
 }
