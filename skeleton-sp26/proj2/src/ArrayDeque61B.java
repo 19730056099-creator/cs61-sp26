@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +21,28 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     //helper to implement the addFirst
     // 往左走一步：0 的左边是最后一格
     private int minusOne(int index) {
-        if (index == 0) {
-            return items.length - 1;
-        }
-        return index - 1;
+//        if (index == 0) {
+//            return items.length - 1;
+//        }
+//        return index - 1;
+        return (index - 1 + items.length) % items.length;
     }
     // 往右走一步：最后一格的右边是 0
     private int plusOne(int index) {
-        if (index == items.length - 1) {
-            return 0;
-        }
-        return index + 1;
+        return (index + 1) % items.length;
     }
+
+    /** a method for resizing up **/
+    public void resizeup(){
+        T[] temp = (T[]) new Object[items.length * 2];
+        for(int i = 0;i < size;i++){
+            temp[i] = items[(nextFirst + 1 + i) % items.length];
+        }
+        items = temp;
+        nextFirst = items.length - 1;   // 注意：这里 items 已经是新数组了
+        nextLast = size;
+    }
+
 
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
@@ -39,6 +51,12 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public void addFirst(T x) {
+//        while(size > items.length){
+//            resizeup();
+//        }size就不可能出现 > items.length的情况,最多就是当size == items.length的时候，数组扩容
+        if(size == items.length){
+            resizeup();
+        }
         items[nextFirst] = x;             // 1. 放进 nextFirst 指的空位
         nextFirst = minusOne(nextFirst);  // 2. nextFirst 往左移一格
         size += 1;                        // 3. 元素个数加一
@@ -51,6 +69,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public void addLast(T x) {
+        if(size == items.length){
+            resizeup();
+        }
         items[nextLast] = x;              // 1. 放进 nextLast 指的空位
         nextLast = plusOne(nextLast);     // 2. nextLast 往右移一格
         size += 1;                        // 3. 元素个数加一
