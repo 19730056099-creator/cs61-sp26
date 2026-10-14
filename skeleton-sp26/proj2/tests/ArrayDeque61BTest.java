@@ -56,4 +56,21 @@ public class ArrayDeque61BTest {
         assertThat(test.isEmpty()).isFalse();
         assertThat(test.size()).isEqualTo(3);
     }
+
+    /** a test for the tolist method **/
+    @Test
+    public void toListTest(){
+        Deque61B<Integer> test = new ArrayDeque61B<>();
+        //为空
+        assertThat(test.toList()).isEmpty();
+        assertThat(test.get(0)).isNull();
+        //当队列不为空的时候
+        test.addFirst(9);
+        test.addLast(8);
+        test.addLast(7);
+        test.addLast(6);
+        test.addLast(5);
+        test.addLast(4);
+        assertThat(test.toList()).containsExactly(9,8,7,6,5,4).inOrder();
+    }
 }

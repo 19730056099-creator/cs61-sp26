@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayDeque61B<T> implements Deque61B<T>{
@@ -53,16 +54,6 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         items[nextLast] = x;              // 1. 放进 nextLast 指的空位
         nextLast = plusOne(nextLast);     // 2. nextLast 往右移一格
         size += 1;                        // 3. 元素个数加一
-    }
-
-    /**
-     * Returns a List copy of the deque. Does not alter the deque.
-     *
-     * @return a new list copy of the deque.
-     */
-    @Override
-    public List<T> toList() {
-        return List.of();
     }
 
     /**
@@ -149,6 +140,20 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public int size() {
         return size;
+    }
+
+    /**
+     * Returns a List copy of the deque. Does not alter the deque.
+     *
+     * @return a new list copy of the deque.
+     */
+    @Override
+    public List<T> toList() {
+        List<T> returnList = new ArrayList<>();
+        for(int i = 0;i<size;i++){
+            returnList.add(get(i));
+        }
+        return returnList;
     }
 
     /**
