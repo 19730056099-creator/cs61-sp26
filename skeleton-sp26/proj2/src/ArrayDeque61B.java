@@ -163,7 +163,15 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T removeFirst() {
-        return null;
+        if (size == 0){
+            return null;
+        }
+        int firstIndex = plusOne(nextFirst);
+        T temp = items[firstIndex];
+        items[firstIndex] = null;//清除引用
+        nextFirst = firstIndex;
+        size--;
+        return temp;
     }
 
     /**
@@ -173,6 +181,14 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
      */
     @Override
     public T removeLast() {
-        return null;
+        if(size == 0){
+            return null;
+        }
+        int lastIndex = minusOne(nextLast);
+        T temp = items[lastIndex];
+        items[lastIndex] = null;
+        nextLast = lastIndex;
+        size--;
+        return temp;
     }
 }

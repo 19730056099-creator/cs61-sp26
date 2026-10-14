@@ -73,4 +73,15 @@ public class ArrayDeque61BTest {
         test.addLast(4);
         assertThat(test.toList()).containsExactly(9,8,7,6,5,4).inOrder();
     }
+
+    /** a test for the removeFirst And removeLast **/
+    @Test
+    public void removeFirstAndRemoveLast(){
+        Deque61B<Integer> test = new ArrayDeque61B<>();
+        test.addFirst(5);
+        test.addLast(6);
+        assertThat(test.toList()).containsExactly(5,6).inOrder();
+        assertThat(test.removeFirst()).isEqualTo(5);
+        assertThat(test.removeLast()).isEqualTo(6);
+    }
 }
