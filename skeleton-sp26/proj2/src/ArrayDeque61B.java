@@ -78,6 +78,37 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         return true;
     }
 
+    //Override the toString() in the ArrayDeque61B class;
+    @Override
+    public String toString(){
+//        String temp = "[";
+////        for(int i =0;i < size();i++){
+////            temp += items[i] + ",";
+////        }绝对不能直接使用数组遍历，因为没有做回环的处理，这样的话，元素不一定从索引0开始，是从它的物理位置开始，而不是逻辑位置开始
+//        for (int i = 0; i < size(); i++) {
+//            if (i > 0){
+//                temp += ",";
+//            }
+//            temp += get(i);
+//        }
+//        temp += "]";
+        //现在这种做法使用字符串拼接+=,在循环里每次都会创建新的String对象(因为String不可变).元素少的时候没问题，但如果deque很大，
+        //会有性能损耗，可以换成StringBuilder
+        StringBuilder temp = new StringBuilder("[");
+//        for(int i =0;i < size();i++){
+//            temp += items[i] + ",";
+//        }绝对不能直接使用数组遍历，因为没有做回环的处理，这样的话，元素不一定从索引0开始，是从它的物理位置开始，而不是逻辑位置开始
+        for (int i = 0; i < size(); i++) {
+            if (i > 0){
+                temp.append(",");
+            }
+            temp.append(get(i));
+        }
+        temp.append("]");
+        return temp.toString();//toString才能转化为真正的字符串
+        //后者的写法，不仅在性能上，当n—>无穷的时候，性能更优，写法上也较前一种写法更优雅
+    }
+
     //helper to implement the addFirst
     // 往左走一步：0 的左边是最后一格
     private int minusOne(int index) {

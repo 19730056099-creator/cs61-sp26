@@ -598,4 +598,13 @@ public class ArrayDeque61BTest {
 
         assertThat(ad.equals(ad2)).isTrue();
     }
+
+    @Test
+    public void toStringDeque61BTest(){
+        Deque61B<String> test = new ArrayDeque61B<>();
+        test.addFirst("front");
+        test.addLast("middle");
+        test.addLast("back");
+        System.out.println(test.toString());
+    }
 }
