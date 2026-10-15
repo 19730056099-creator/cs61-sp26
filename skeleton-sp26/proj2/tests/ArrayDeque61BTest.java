@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static com.google.common.truth.Truth.assertThat;
 
 public class ArrayDeque61BTest {
@@ -533,5 +536,50 @@ public class ArrayDeque61BTest {
             lld.removeLast();
         }
         assertThat(lld.length()).isEqualTo(8);
+    }
+
+    @Test
+    public void interatorTest() {
+        Deque61B<String> test = new ArrayDeque61B<>();
+        test.addLast("front");
+        test.addLast("middle");
+        test.addLast("back");
+        for (String s : test) {
+            System.out.println(s);
+        }
+        //为什么for-each用法会和迭代器产生关系
+        /**
+         * 因为for-each本身不会"遍历",它只是一种简写（语法糖），编译器会把它翻译成迭代器的代码
+         * 编译器做的翻译
+         *
+         * 你写的：
+         *
+         * java
+         * for (String s : ad) {
+         *     System.out.println(s);
+         * }
+         *
+         * 编译器实际生成的：
+         *
+         * java
+         * Iterator<String> it = ad.iterator();
+         * while (it.hasNext()) {
+         *     String s = it.next();
+         *     System.out.println(s);
+         * }
+         *
+         * 所以for-each要能工作，test必须有iterator()方法,也就是必须实现Iterable.没有的话编译器就翻译不下去，
+         *                    于是报错"foreach not applicable to type"
+         * **/
+    }
+
+    @Test
+    public void addLastTestBasicWithoutToList() {
+        Deque61B<String> ad = new ArrayDeque61B<>();
+
+        ad.addLast("front"); // after this call we expect: ["front"]
+        ad.addLast("middle"); // after this call we expect: ["front", "middle"]
+        ad.addLast("back"); // after this call we expect: ["front", "middle", "back"]
+        assertThat(ad).containsExactly("front", "middle", "back");
     }
 }

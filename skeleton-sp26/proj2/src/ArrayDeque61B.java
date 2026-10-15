@@ -1,6 +1,5 @@
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ArrayDeque61B<T> implements Deque61B<T>{
@@ -18,6 +17,33 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         nextLast = 4;
     }
 
+    //iterator
+
+    @Override
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        private int pos;
+
+        public ArrayDequeIterator(){
+            pos = 0;
+        }
+
+        @Override
+        public boolean hasNext(){
+            return pos < size();
+        }
+
+        @Override
+        public T next(){
+            T item = get(pos);
+            pos += 1;
+            return item;
+        }
+    }
+
     //helper to implement the addFirst
     // 往左走一步：0 的左边是最后一格
     private int minusOne(int index) {
@@ -33,7 +59,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     /** a method for resizing up **/
-    public void resizeup(){
+    private void resizeup(){
         T[] temp = (T[]) new Object[items.length * 2];
         for(int i = 0;i < size;i++){
             temp[i] = items[(nextFirst + 1 + i) % items.length];
@@ -44,7 +70,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     /** a method for resizing up **/
-    public void resizedown(){
+    private void resizedown(){
         T[] temp = (T[]) new Object[items.length / 2];
         for(int i = 0;i < size;i++){
             temp[i] = items[(nextFirst + 1 + i) % items.length];
@@ -236,4 +262,5 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         }
         return temp;
     }
+
 }
