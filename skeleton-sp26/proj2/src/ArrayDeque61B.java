@@ -44,6 +44,40 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         }
     }
 
+    //Override the equals()method in the ArrayDeque61B class.
+    @Override
+    public boolean equals(Object other){
+        //1.同一个对象，直接相等（小优化）
+        if(this == other){
+            return true;
+        }
+
+        //2.对方不是Deque61B(包括other 为 null的情况)，一定不相等
+        //这里已经把other转型并赋值给o了
+        if (!(other instanceof Deque61B<?> o)){
+            return false;
+        }
+
+        //3.元素个数不同，不相等
+        if(this.size() != o.size()){
+            return false;
+        }
+
+        //4.逐个比较元素
+        Iterator<T> it1 = this.iterator();
+        Iterator<?> it2 = o.iterator();//为什么泛型那边要写?
+        while(it1.hasNext() && it2.hasNext()){
+            T item1 = it1.next();
+            Object item2 = it2.next();
+            // 使用 Objects.equals(item1, item2) 或 !item1.equals(item2)
+            // 题目假设元素不为 null，直接用 .equals 也可以，用 Objects.equals 更安全
+            if (!java.util.Objects.equals(item1, item2)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //helper to implement the addFirst
     // 往左走一步：0 的左边是最后一格
     private int minusOne(int index) {
